@@ -1,5 +1,4 @@
 <?php
-// get_users.php
 
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
@@ -13,15 +12,15 @@ $password = '';
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
+//die('kkk');
     // Query to get all users
-    $stmt = $pdo->query("SELECT id, googleId, email, name, role, create_at, version, date_of_birth, gender, mobile FROM users ORDER BY id DESC");
+    $stmt = $pdo->query("SELECT id,name,state,site_name FROM metrocities ORDER BY id ASC");
 
-    $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $metrocities = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     echo json_encode([
         'success' => true,
-        'users' => $users
+        'metrocities' => $metrocities
     ]);
 } catch (PDOException $e) {
     http_response_code(500);
